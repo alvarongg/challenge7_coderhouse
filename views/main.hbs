@@ -1,0 +1,38 @@
+  <h2>Formulario de carga de productos</h1>
+  <hr>
+  
+  <div class="formulario">
+    
+    <form onsubmit="return enviarProducto()"> 
+        <label for="title">Product title:</label><br>
+        <input type="text"  id="title"><br>
+        <label for="price">Product price:</label><br>
+        <input type="number" step="0.01"  id="price"><br>
+        <label for="thumbnail">Product thumbnail:</label><br>
+        <input type="text"  id="thumbnail"><br><br>
+        <button type="submit" class="btn btn-info">Guardar nuevo producto</button>
+    </form>
+    </div>
+    <br>
+    <br>
+   
+    <h2>Tabla de Productos</h1>
+      <hr>
+   <div id="products">
+   </div>
+  
+    <br>
+    <br>
+    <br>
+    <h2>Super chat</h1>
+    <hr>
+    <div class="chat">
+      
+   <form onsubmit="return enviarMensaje()">
+      <input type="text" id="author" placeholder="Email"/>
+      <input type="text" id="text" placeholder="Escriba su mensaje"/>
+      <button type="submit" class="btn btn-info"><i class="fa fa-send"></i></button>
+    </form>
+   <div id="messages"></div>
+ 
+    </div>

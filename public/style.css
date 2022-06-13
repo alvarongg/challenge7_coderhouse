@@ -1,0 +1,31 @@
+body{
+    width: 100%;
+    align-items: center;
+    background-color: white;
+}
+
+div {
+    align-items: center;
+    background-color: grey;
+}
+
+.message{
+    background-color: grey;
+    color: white;
+}
+
+.date{
+    color: brown;
+}
+
+.email{
+    text-decoration: bold;
+    color:blue;
+}
+
+.msj{
+    text-decoration: italic;
+    color: green;
+}
+
+
