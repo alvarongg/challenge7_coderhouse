@@ -14,8 +14,8 @@ Utilice docker para ejecutar la base de datos MySQL con el objetivo de hacer lo 
 
 Para instalar docker seguir estos manuales:
 
-[Instalar en Ubuntu](https://acloudguru.com/hands-on-labs/installing-and-configuring-the-docker-engine?utm_campaign=11244863417&utm_source=google&utm_medium=cpc&utm_content=469352928666&utm_term=_&adgroupid=115625160932&gclid=CjwKCAjw46CVBhB1EiwAgy6M4ikP_hcA42mlznnGgVem1iP6uS0lUM9py3NXVlILLA5IW9GyOHT7GBoCQM8QAvD_BwE)
-[Instalar en Windows](https://docs.docker.com/desktop/windows/install/)
+* [Instalar en Ubuntu](https://acloudguru.com/hands-on-labs/installing-and-configuring-the-docker-engine?utm_campaign=11244863417&utm_source=google&utm_medium=cpc&utm_content=469352928666&utm_term=_&adgroupid=115625160932&gclid=CjwKCAjw46CVBhB1EiwAgy6M4ikP_hcA42mlznnGgVem1iP6uS0lUM9py3NXVlILLA5IW9GyOHT7GBoCQM8QAvD_BwE)
+* [Instalar en Windows](https://docs.docker.com/desktop/windows/install/)
 
 
 Para limpiar las imagenes de docker se [debe seguir este manual](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes-es)
