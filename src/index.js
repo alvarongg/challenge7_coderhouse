@@ -1,27 +1,18 @@
 const express = require("express");
+const path = require('path');
+const moment = require('moment'); 
 const {productRouter,getAllProd,saveProd }= require("./productRouter.js");
 const { engine } = require("express-handlebars");
 const { Server: HttpServer } = require('http');
 const { Server: SocketServer } = require('socket.io');
 const MensajesSqlite = require("./mensajes.js");
-
-const moment = require('moment'); 
-const path = require('path');
+let options_path = path.join(__dirname,'..', 'DB','options.js');
+const { optionsSqlite } = require(options_path);
 const app = express();
-
-
-let message_path = path.join(__dirname, '..', 'database','chat','mensajes.sqlite');
-
-const options = {
-    client: 'sqlite3',
-    connection: {
-        filename: message_path
-    }
-  }
 
 const tabla_chat = 'mensajes';
 
-let chat = new MensajesSqlite(options,tabla_chat);
+let chat = new MensajesSqlite(optionsSqlite,tabla_chat);
 
 
 let views_path = path.join(__dirname, '..', 'views');
@@ -58,13 +49,13 @@ socketServer.on('connection', async (socket) => {
 
   //emite los mensajes y productos actuales
   socket.emit('messages', await chat.getAll());
-  socket.emit('products',getAllProd());
+  socket.emit('products', await getAllProd());
 
-  socket.on('new_product',  (producto) => {
+  socket.on('new_product', async  (producto) => {
     //inserta el producto que le llego 
     console.log(`saved prod: ${producto}`);
      saveProd(producto);
-    socketServer.sockets.emit('products', getAllProd());
+    socketServer.sockets.emit('products', await getAllProd());
   
   });
 

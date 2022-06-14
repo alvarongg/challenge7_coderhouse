@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "init-dbs": "node ./config/mysql.js && node ./config/sqlite.js",
+    "up-dkr-mysql": "docker-compose -f ./config/docker/docker-compose.yml up -d && docker ps",
+    "kill-dkr-mysql": "docker kill docker_mysql && docker ps"
+    
+
   },
   "author": "",
   "license": "ISC",

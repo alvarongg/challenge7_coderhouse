@@ -3,30 +3,25 @@ const Knex = require('knex').default;
 
 
 module.exports = class Contenedor {
-  constructor() {
-    this.container = [];
+  constructor(options,tabla) {
+    this.knex = Knex({
+      client: 'mysql2',
+      connection: options
+    });
+    this.tabla = tabla;
+    
   }
-
   /**
    * Guarda agrega un objeto array
    * @param {string} obj
    * @returns Id del objeto guardado
    */
-  save(obj) {
+ async save(obj) {
     try {
-      let longitud = this.container.length;
-      let index = 0;
-      //Valido que el array tenga objetos
-      if (longitud == 0) {
-        index = 1;
-      } else {
-        //sumar uno al id del ultimo elemento y agregarlo al id del objeto
-        index = this.container[longitud - 1].id + 1;
-      }
-
-      obj.id = index;
-      this.container.push(obj);
-
+        await this.knex(this.tabla).insert([
+            {title: obj.title, price: obj.price, thumbnail: obj.thumbnail}]);
+      obj.id = await this.knex(this.tabla).max("id");
+      
       return obj.id;
     } catch (error) {
       throw error;
@@ -40,15 +35,17 @@ module.exports = class Contenedor {
    */
   getById(id) {
     try {
-      let array = this.container.filter((x) => {
-        return x.id == id;
-      });
+      // let array = this.container.filter((x) => {
+      //   return x.id == id;
+      // });
 
-      if (array[0] == undefined) {
-        return { error: "producto no encontrado" };
-      } else {
-        return array;
-      }
+      // if (array[0] == undefined) {
+      //   return { error: "producto no encontrado" };
+      // } else {
+      //   return array;
+      // }
+
+      return {error: 'Funcionalidad getById deprecada'};
     } catch (error) {
       throw error;
     }
@@ -61,19 +58,20 @@ module.exports = class Contenedor {
    */
   updateById(obj) {
     try {
-      let objIndex = this.container.findIndex(
-        (product) => product.id == obj.id
-      );
+      // let objIndex = this.container.findIndex(
+      //   (product) => product.id == obj.id
+      // );
 
-      if (objIndex == -1) {
-        return { error: "producto no encontrado" };
-      } else {
-        this.container[objIndex].title = obj.title;
-        this.container[objIndex].price = obj.price;
-        this.container[objIndex].thumbnail = obj.thumbnail;
+      // if (objIndex == -1) {
+      //   return { error: "producto no encontrado" };
+      // } else {
+      //   this.container[objIndex].title = obj.title;
+      //   this.container[objIndex].price = obj.price;
+      //   this.container[objIndex].thumbnail = obj.thumbnail;
 
-        return { estado: "Producto actualizado" };
-      }
+      //   return { estado: "Producto actualizado" };
+      // }
+      return {error: 'Funcionalidad updateById deprecada'};
     } catch (error) {
       throw error;
     }
@@ -83,10 +81,10 @@ module.exports = class Contenedor {
    *
    * @returns Devuelve todos los objetos del array
    */
-  getAll() {
+   async getAll() {
     try {
-      
-      return this.container;
+      const array = await this.knex.from(this.tabla).select("*");
+      return array;
     } catch (error) {
       throw error;
     }
@@ -98,17 +96,18 @@ module.exports = class Contenedor {
    */
   deleteById(id) {
     try {
-      let obj = this.getById(id);
-      console.log(obj.error != "");
+      // let obj = this.getById(id);
+      // console.log(obj.error != "");
 
-      if (obj.error == "") {
-        return obj;
-      } else {
-        this.container = this.container.filter((x) => {
-          return x.id != id;
-        });
-        return { idDeleted: id };
-      }
+      // if (obj.error == "") {
+      //   return obj;
+      // } else {
+      //   this.container = this.container.filter((x) => {
+      //     return x.id != id;
+      //   });
+      //   return { idDeleted: id };
+      // }
+      return {error: 'Funcionalidad deleteById deprecada'};
     } catch (error) {
       throw error;
     }

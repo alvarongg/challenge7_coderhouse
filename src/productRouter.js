@@ -1,36 +1,38 @@
 const express = require("express");
+const path = require('path');
 const productRouter = express.Router();
 console.log("Router Productos cargados");
 
+let options_path = path.join(__dirname,'..', 'DB','options.js');
+const { optionsMySQL } = require(options_path);
 
-const options = {
-  client: 'sqlite3',
-  connection: {
-    filename: './ecommerce/products.sqlite'
-  }
-}
+// const optionsMySQL = {
+//   host: "localhost",
+//   user: "root",
+//   port: "3307",
+//   password: "root",
+//   database: "test_db"
+// };
 
 let Contenedor = require("./contenedor.js");
-let productos = new Contenedor();
+let productos = new Contenedor(optionsMySQL,'productos');
 
 productRouter.use(express.json());
 productRouter.use(express.urlencoded({ extended: true }));
 
-function getAllProd(){
-  return productos.getAll();
+async function getAllProd(){
+  const resultado = await productos.getAll();
+  return resultado;
 }
 
-function saveProd(obj){
-  productos.save(obj);
+async function saveProd(obj){
+  await productos.save(obj);
 }
-
-
-
 
 //devuelve todos los productos
-productRouter.get("/", (req, res) => {
+productRouter.get("/", async (req, res) => {
   try {
-    res.send(productos.getAll());
+    res.send(await productos.getAll());
   } catch (error) {
     throw new Error("Hubo un error al listar todos los productos");
   }
@@ -49,14 +51,14 @@ productRouter.get("/:id", (req, res) => {
 });
 
 //recibe y agrega el producto pasado por post
-productRouter.post("/", (req, res) => {
+productRouter.post("/", async (req, res) => {
   try {
     let obj = {};
 
     obj.title = req.body.title;
     obj.price = req.body.price;
     obj.thumbnail = req.body.thumbnail;
-    let id = productos.save(obj);
+    let id = await productos.save(obj);
 
     res.send({ id });
 

@@ -28,6 +28,7 @@ module.exports = class MensajesSqlite {
      */
    async getAll() {
       try {
+      
         const array = await this.knex.from(this.tabla).select("*");
         return array;
       } catch (error) {
